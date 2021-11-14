@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/all.min.css">
+    <link rel="stylesheet" href="/font/fontawesome-free-5.15.3-web/css/all.css">
+    <link rel="stylesheet" href="/css/grid.css">
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/admin.css"> 
+</head>
+<body>
+    <%- include('../partial/adminNav')%>
+    <main class="main grid">
+        <div class="main-sidebar">
+            <ul class="main-sidebar__list">
+                <li class="main-sidebar__item <%=page=='book'?'actived':''%>">
+                    <a href="/admin">
+                        <i class="fab fa-product-hunt"></i>
+                        Products Management
+                    </a>
+                </li>
+                <li class="main-sidebar__item <%=page=='order'?'actived':''%>">
+                    <a href="/orders">
+                        <i class="fab fa-jedi-order"></i>
+                        Orders Management
+                    </a>
+                </li>
+                <li class="main-sidebar__item">
+                    <i class="fas fa-users"></i>
+                    Users Management
+                </li>
+            </ul>
+        </div>
+        <div class="main-content">
+            <%-body%> 
+        </div> 
+    </main>
+    
+</body>
+<script src="/js/script.js"></script>
+<script>
+// click icon down to show logout admin page
+
+$('.header-main__user-icon').addEventListener('click', function(){
+    console.log('hello')
+    $('.header-main__user-icon-logout').classList.toggle('hidden');
+})
+</script>
+</html>

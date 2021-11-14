@@ -1,0 +1,31 @@
+<%layout('layout/adminBoilerplate')%> 
+    <div class="form-wrapper">
+        <h3 class="edit-form__heading">Edit book</h3>
+        <form action="/admin/books/<%=book._id%>?_method=PATCH" method='POST' class="general-form">
+            <label for="name">Name</label>
+            <input type="text" name="name" id="name" value="<%=book.name%> ">
+            <label for="price">Price</label>
+            <input type="number" name="price" id="price" value="<%=book.price%>">
+            <label for="description">Description</label>
+            <input type="text" name="description" id="description" value="<%=book.description%>">
+            <label for="author">Author</label>
+            <input type="text" name="author" id="description" value="<%=book.author%>">
+            <label for="image">Image</label>
+            <input type="text" name="image" id="image" value="<%=book.image%>">
+            <div class="select-category">
+                <select name="category">
+                    <option value="<%=book.category.name%>" selected>
+                        <%=book.category.name%>
+                    </option>
+                    <% for(let i=0;i<cat.length;i++){ %>
+                        <% if (cat[i].name !=book.category.name ) { %>
+                            <option value="<%=cat[i].name%>">
+                                <%=cat[i].name%>
+                            </option>
+                            <% } %>
+                            <% } %>
+                </select>
+            </div>
+            <button>Edit</button>
+        </form>
+    </div>

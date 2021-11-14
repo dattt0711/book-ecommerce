@@ -1,0 +1,112 @@
+<% layout('layout/boilerplate') %> 
+    <main class="product-wrapper grid">
+        <div class="product grid wide">
+            <div class="product-header">
+                <a href="" class="product-header__home">Trang chủ</a>
+                <i class="product-header__icon fas fa-chevron-right"></i>
+                <% if(cat=='all'){ %> 
+                <a href="" class="product-header__cate">Tất cả các thể loại</a>
+                <% } else { %> 
+                <a href="" class="product-header__cate"><%=cat%> </a>  
+                <% } %>  
+            </div>
+            <div class="product-content">
+                <div class="row">
+                    <div class="col l-2">
+                        <div class="product-content__sidebar">
+                            <h3 class="product-content__sidebar-heading">Danh mục sách</h3>
+                            <ul class="product-content__sidebar-list">
+                                <li class="product-content__sidebar-item">
+                                    <a href="/books" class="product-content__sidebar-link <%=(cat=='all')?'product-content__sidebar-link--active':''%>">Tất cả các thể loại</a>
+                                </li>
+                                <% for(let c=0;c<categories.length;c++) {%> 
+                                    <li class="product-content__sidebar-item">
+                                        <a href="/books/category/<%=categories[c].name%>" class="product-content__sidebar-link <%=(cat==categories[c].name)?'product-content__sidebar-link--active':''%>"><%=categories[c].name%> </a>
+                                    </li>
+                                <% } %> 
+                               
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col l-10">
+                        <div class="product-content__main">
+                            <div class="product-content__main-sort">
+                                <a href="" class="product-sort-link product-sort-link--active">Bán chạy</a>
+                                <a href="" class="product-sort-link">Giá thấp</a>
+                                <a href="" class="product-sort-link">Giá cao</a>
+                            </div>                                            
+                            <ul class="product-content__list">
+                                <div class="row">
+                                    <% for(let i=0; i<books.length; i++) {%> 
+                                    <div class="col l-2-5">
+                                        <li class="product-content__item">
+                                            <a href="/books/<%=books[i]._id%>" class="product-content__item-link">
+                                                <img src="<%=books[i].image %> " alt="" class="product-content__item-img">
+                                                <p class="product-content__item-name"><%= books[i].name %></p>
+                                                <p class="product-content__item-price">300.000 đ</p>
+                                            </a>
+                                        </li>
+                                    </div>    
+                                    <% } %>                            
+                                </div>
+                            </ul>
+                            <% if(pages !=0 ) { %> 
+                            <div class="product-pagination-wrapper">
+                                <%  current = Number(current) %> 
+                                <%  pages = Number(pages)%> 
+                                <div class="product-pagination">       
+                                    <% if(current == 1) {%> 
+                                    <div class="page-first disabled" onclick="preventClick(event)">
+                                        <a href="#/"><i class="first-icon fas fa-step-backward"></i></a>
+                                     </div>
+                                     <% } else {%> 
+                                        <div class="page-first ">
+                                            <a href="/books/category/<%=cat%>/page/1"><i class="first-icon fas fa-step-backward"></i></a>
+                                         </div>
+                                    <% } %> 
+                                    <% if(current != 1 && current !=2 && current != 3){ %> 
+                                     <div class="page-item ">
+                                         <a href="" class="page-link">...</a>
+                                     </div>   
+                                     <% } %> 
+                                     <% if(current == 1 || current ==2){ %> 
+                                     <div class="page-item <%=(current==1)?'active':''%>">
+                                         <a href="/books/category/<%=cat%>/page/1" class="page-link">1</a>
+                                     </div>
+                                     <div class="page-item <%=(current==2)?'active':''%>">
+                                         <a href="/books/category/<%=cat%>/page/2" class="page-link">2</a>
+                                     </div>
+                                     <div class="page-item">
+                                         <a href="/books/category/<%=cat%>/page/3" class="page-link">3</a>
+                                     </div>
+                                     <% } else {%> 
+                                        <% for(let i = (current - 2) ; i<=(current +2) && i<= pages; i++) {%> 
+                                        <div class="page-item <%=(current==i)?'active':''%>">
+                                            <a href="/books/category/<%=cat%>/page/<%=i%> " class="page-link"><%= i %> </a>
+                                        </div>    
+                                        <% } %> 
+                                     <% } %> 
+                                     <% if(!(current == pages || current  == (pages-1) || current == (pages-2))){ %> 
+                                     <div class="page-item">
+                                         <a href="" class="page-link">...</a>
+                                     </div>
+                                     <% } %> 
+                                     <% if(current == pages) {%> 
+                                    <div class="page-last disabled onclick="preventClick(event)">
+                                            <a href="#/ " class=""><i class="last-icon fas fa-step-forward"></i></a>
+                                    </div>
+                                    <% }else { %> 
+                                     <div class="page-last">
+                                         <a href="/books/category/<%=cat%>/page/<%=pages%> " class=""><i class="last-icon fas fa-step-forward"></i></a>
+                                     </div>
+                                    <% } %> 
+                                </div>
+                                </div>
+                                <% } %> 
+                        </div>  
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+   

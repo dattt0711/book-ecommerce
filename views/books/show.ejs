@@ -1,0 +1,28 @@
+<%layout('layout/boilerplate')%> 
+    <div class="product-information-wrapper grid">
+        <div class="product-information grid wide">
+            <div class="row">
+                <div class="col l-4">
+                    <img src="https://salt.tikicdn.com/cache/w1200/ts/product/c3/32/a2/6e076a9087583e35575486c5cbc45ffa.jpg" alt="" class="product-information-img">
+                </div>
+                <div class="col l-8 product-information-detail">
+                    <p class="product-information-detail__author">Tác giả: <span>Joe Vitale</span></p>
+                    <p class="product-information-detail__name">Giới hạn của bạn là xuất phát điểm của tôi</p>
+                    <p class="product-information-detail__price"><%=getBook.price%> đ</p>
+                    <a href="/addToCart/<%=getBook._id%>">
+                    <button class="product-information-detail__btn">
+                       <span>Chọn mua</span>
+                    </button>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="product-information-description-wrapper grid wide">
+            <div class="row">
+                <div class="product-information-description col l-7">
+                    <h3 class="product-information-description__heading">Mô tả sản phẩm</h3>
+                    <p class="product-information-description__detail"><%=getBook.description%></p>
+                </div>
+            </div>
+        </div>
+    </div>

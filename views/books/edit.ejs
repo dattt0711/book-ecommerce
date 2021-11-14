@@ -1,0 +1,14 @@
+<%layout('layout/boilerplate')%> 
+    <form action="/books?_method=PUT/<%book._id%>" method='POST'>
+        <label for="name">Name</label>
+        <input type="text" name="name" id="name" value="<%=book.name%>" >
+        <label for="price">price</label>
+        <input type="text" name="price" id="price" value=<%=book.price%>>
+        <label for="category">category</label>
+        <input type="text" name="category" id="category" value=<%=book.category%>>
+        <label for="description">description</label>
+        <input type="text" name="description" id="description" value=<%=book.description%>>
+        <label for="image">image</label>
+        <input type="text" name="image" id="image" value=<%=book.image%>>
+        <button>Submit</button>
+    </form>

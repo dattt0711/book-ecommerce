@@ -1,0 +1,138 @@
+<% layout('layout/adminBoilerplate') %> 
+        <h3 class="main-content__heading">ORDERS LIST</h3>
+        <div class="sticky-table" style="height:660px; overflow:auto">
+            <table class="product__table" >
+            <thead class="product__table-heading">
+                <tr class="product__table-heading-row">
+                    <th>Tên Khách hàng</th>                                          
+                    <th>Số điện thoại</th>       
+                    <th>Địa chỉ</th>
+                    <th>Xem giỏ hàng</th>
+                    <th>Tổng tiền</th>
+                    <th>Trạng thái</th>
+                </tr>
+            </thead>
+            <tbody class="product__table-body">
+                <% for(let i=0;i<orders.length;i++){ %> 
+                <tr class="cart-body__row">
+                    <td style="width: 15%">
+                        <div class="cart-body__product">
+                           <%=orders[i].fullName %> 
+                        </div>
+                    </td>
+                    <td style="width: 15%">
+                        <div class="cart-body__product">
+                            <%=orders[i].phoneNumber %> 
+                        </div>
+                    </td>
+                    <td style="width: 28%">
+                        <div class="cart-body__product">
+                            <%=orders[i].address %> 
+                        </div>
+                    </td>
+                    <td style="width: 10%">
+                        <div class="cart-body__product">
+                            <i id="<%=orders[i]._id%>"  class="view-cart-detail fas fa-eye"></i>
+                        </div>
+                    </td>
+                    <td style="width: 17%">
+                        <div class="cart-body__product">
+                            <%=orders[i].total%> VNĐ
+                        </div>
+                    </td>
+                    <td style="width: 15%">
+                        <div class="cart-body__product">
+                            <select data-id="<%=orders[i]._id%>" class="cart-body__product-status" name="status">
+                            <option <%=orders[i].status=='PENDING'?'selected':''%>> PENDING </option>
+                            <option <%=orders[i].status=='COMPLETED'?'selected':''%>> COMPLETED </option>
+                            <option <%=orders[i].status=='CANCLED'?'selected':''%>> CANCLED </option>
+                            </select>
+                        </div>
+                    </td> 
+                </tr>
+                <% } %> 
+            </tbody>
+            </table>
+        </div>
+        <div class="cart-detail-popup">
+            <table class="sticky-table cart__detail" style="overflow:auto">
+                <thead class="cart__detail-header">
+                        <tr class="cart__detail-header__row"> 
+                                <th style="width: 35%">
+                                    <div>
+                                        Danh mục
+                                    </div>
+                                </th>
+                                <th style="width:20%">
+                                    <div>
+                                        Đơn giá
+                                    </div>
+                                </th>
+                                <th style="width:20%">
+                                    <div>
+                                        Số lượng
+                                    </div>
+                                </th>
+                        </tr>
+                </thead>
+                <tbody class="cart__detail-boby">     
+                </tbody>
+        </table>
+        </div>
+<script>
+    let viewBtn = document.querySelectorAll('.view-cart-detail');
+    viewBtn.forEach(e =>{
+        e.addEventListener('click', async ()=>{
+        document.querySelector('.cart__detail-boby').innerHTML = '';
+        document.querySelector('.cart-detail-popup').style.display = 'flex';
+        let id = e.getAttribute('id');
+        let orderData = await fetch(`http://localhost:3000/orders/${id}`,{
+            method: 'GET'
+            }).then(data=>data.json());
+        console.log(orderData);
+        for(let i=0;i<orderData.cart.length;i++){
+        let rs = `
+                    <tr class="cart__detail-header__row"> 
+                        <td >
+                            <div class="cart__detail-body__product">
+                                ${orderData.cart[i].name}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="cart__detail-body__price">
+                                ${orderData.cart[i].price}
+                            </div>
+                        <td>
+                            <div class="cart__detail-body__qty">
+                                <span class="cart__detail-body__qty-value">
+                                ${orderData.cart[i].qty}
+                                </span>
+                            </div>
+                        </td>
+                    </tr>`;
+        document.querySelector('.cart__detail-boby').innerHTML+=rs;
+    }
+    })
+    });
+    document.addEventListener('click', function(e){
+        if(e.target.closest('.cart-detail-popup') && !e.target.classList.contains('cart-detail')) {
+            console.log('helo')
+            document.querySelector('.cart-detail-popup').style.display = 'none';
+        }
+    })
+    document.querySelectorAll('.cart-body__product-status').forEach(e=>{
+        e.addEventListener('change', async function(){
+        let newStt = e.value;
+        let id = e.getAttribute('data-id');
+        await fetch(`http://localhost:3000/orders/${id}/changeStatus`,{
+            method: 'POST',
+            headers:{
+            "Content-Type": 'application/json',
+            'Accept': 'application/json',
+            },
+            body: JSON.stringify({status: newStt})
+            });
+    })
+})
+</script>
+

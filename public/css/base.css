@@ -1,0 +1,14 @@
+:root{
+    --text-color: rgb(36,36,36);
+    --primary-color:#0d5cb6;
+}
+*{
+    box-sizing: inherit;
+}
+
+html{
+    font-size: 62.5%; 
+    line-height: 1.6rem;
+    font-family: sans-serif;
+    box-sizing: border-box;
+}

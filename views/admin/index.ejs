@@ -1,0 +1,150 @@
+<% layout('layout/adminBoilerplate') %> 
+        <h3 class="main-content__heading">BOOK LIST</h3>
+        <a href="/admin/books/new"><button class="add-btn">
+            <i class="fas fa-plus"></i>
+            Thêm sách mới
+        </button></a>
+        <div class="sticky-table" style="height:660px; overflow:auto">
+            <table class="product__table" >
+            <thead class="product__table-heading">
+                <tr class="product__table-heading-row">
+                    <th>Tên sách</th>                                          
+                    <th>Giá</th>       
+                    <th>Mô tả</th>
+                    <th>Tác giả</th>
+                    <th> Ảnh</th>
+                    <th>Thể loại</th>
+                    <th>Chức năng</th>
+                </tr>
+            </thead>
+            <tbody class="product__table-body">
+                <% for(let i=0;i<books.length;i++){ %> 
+                <tr class="cart-body__row">
+                    <td style="width: 20%">
+                        <div class="cart-body__product">
+                            <%=books[i].name%> 
+                        </div>
+                    </td>
+                    <td style="width: 10%">
+                        <div class="cart-body__product">
+                            <%=books[i].price%> VND
+                        </div>
+                    </td>
+                    <td style="width: 20%">
+                        <div class="cart-body__product cart-body__product-des">
+                           <p> <%=books[i].description%> </p> 
+                        </div>
+                    </td>
+                    <td style="width: 5%">
+                        <div class="cart-body__product">
+                            <%=books[i].author%> 
+                        </div>
+                    </td>
+                    <td style="width: 30%">
+                        <div class="cart-body__product">
+                          <img src="img/gioi-han-cua-ban.jfif" alt="" class="cart-body__product-img">
+                        </div>
+                    </td>
+                    <td style="width: 5%">
+                        <div class="cart-body__product">
+                            <% if(books[i].category){ %> 
+                            <p><%=books[i].category.name%> </p> 
+                            <% }else{ %> 
+                                Chua co category
+                            <% } %> 
+                        </div>
+                    </td>   
+                    <td style="width: 10%">
+                        <div class="cart-body__product">
+                            <form action="/admin/books/<%=books[i]._id%>/edit" class="edit-btn">
+                                <button>
+                                    <i class="far fa-edit"></i>
+                                </button>
+                            </form>
+                            <form action="/admin/books/<%=books[i]._id%>?_method=DELETE" method="POST" class="delete-btn">
+                                <button>
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </td>   
+                </tr>
+                <% } %> 
+            </tbody>
+            </table>
+        </div>
+
+
+        <div class="main-conten__category">
+            <h3 class="main-content__heading">DANH MỤC</h3>
+            <a href="#">
+                <button class="add-btn add-category-btn">
+                    <i class="fas fa-plus"></i>
+                    Thêm danh mục mới
+                </button>
+            </a>
+           
+            <div class="sticky-table" style="height:360px; width:70%; overflow:auto">
+                <table class="category__table">
+                    <thead class="product__table-heading">
+                        <tr class="product__table-heading-row">
+                            <th>Danh mục</th>
+                            <th>Chức năng</th>
+                        </tr>
+                    </thead>
+                    <tbody class="product__table-body">
+                        <% for(let i=0;i<category.length;i++){ %>
+                            <tr class="cart-body__row">
+                                <td style="width: 80%">
+                                    <div class="cart-body__product cart-body__category">
+                                        <%=category[i].name%>
+                                    </div>
+                                </td>
+                                <td style="width: 20%">
+                                    <div class="cart-body__product cart-body__category">
+                                        <a action="#" class="edit-btn">
+                                            <button class="edit-category-btn">
+                                                <i class="far fa-edit"></i>
+                                            </button>                                            
+                                        </a>
+                                        <!-- Popup edit category -->
+                                        <div class="pop-up-category-edit">
+                                            <div class="pop-up-category__wrapper">
+                                                <h3 class="pop-up-category__heading">Chỉnh sửa danh mục</h3>
+                                                <form action="/admin/category/<%=category[i]._id%>?_method=PATCH" method='POST' class="general-form">
+                                                    <label for="name">Tên danh mục</label>
+                                                    <input type="text" name="name" id="name" value="<%=category[i].name%>">
+                                                    <button>Sửa</button>
+                                                </form>
+                                                <span class="close-btn">
+                                                    <i class="far fa-window-close"></i>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <form action="/admin/category/<%=category[i]._id%>?_method=DELETE" method="POST" class="delete-btn">
+                                            <button>
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                            <% } %>
+                    </tbody>
+                </table>            
+            </div>
+        </div>
+         <!-- Popup add new category -->
+        <div class="pop-up-category">
+            <div class="pop-up-category__wrapper">
+                <h3 class="pop-up-category__heading">Tạo mới danh mục</h3>
+                <form action="/admin/category" method='POST' class="general-form">
+                    <label for="name">Tên danh mục</label>
+                    <input type="text" name="name" id="name">
+                    <button>Tạo</button>
+                </form>
+                <span class="close-btn">
+                    <i class="far fa-window-close"></i>
+                </span>
+            </div>
+        </div>

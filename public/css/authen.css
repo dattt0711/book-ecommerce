@@ -1,0 +1,75 @@
+body{
+    background-color:  #e6e6e6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.register-wrapper{
+    width: 700px;
+    height: 500px;
+    background-color: #fff;
+    border-radius: 8px;
+    display: flex;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 3px 8px;
+}
+
+.register-form{
+    padding: 50px;
+    flex: 0 0 50%;
+    display: flex;
+    flex-direction: column;
+}
+
+.register-form input{
+    outline: none;
+    border: none;
+}
+
+.register-form__heading{
+    color: var(--text-color);
+    font-size: 3rem;
+    margin-bottom: 30px;
+    font-weight: bold;
+}
+
+.register-form__username,.register-form__email,.register-form__password,.register-form__numberPhone{
+    font-size: 1.6rem;
+    display: flex;
+    margin-top: 20px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #999;
+}
+
+.register-form--icon{
+    margin-right: 8px;
+}
+
+.register-cover{
+    flex: 0 0 50%;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.register-form__btn {
+    background-color: transparent;
+    margin-top: 10px;
+    padding: 16px 0;
+    outline: none;
+    border: none;
+    text-align: left;
+}
+.register-form__btn span{
+    padding: 8px 16px;
+    background-color: var(--primary-color);
+    cursor: pointer;
+    border-radius: 3px;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 1.3rem;
+}
+
+.register-form__btn span:hover{
+    background-color: #58a1f3;
+}
